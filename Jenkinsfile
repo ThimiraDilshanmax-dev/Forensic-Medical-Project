@@ -25,8 +25,8 @@ pipeline {
                     // Installs dependencies using the Node.js we installed on your EC2
                     sh 'npm install'
                     
-                    // TODO: Uncomment the line below once you write your Jest/Mocha tests
-                    // sh 'npm test'
+                    // Runs the newly added Jest + Supertest test suite
+                    sh 'npm test'
                     echo 'Backend is ready!'
                 }
             }
@@ -37,8 +37,8 @@ pipeline {
                 dir('frontend') {
                     sh 'npm install'
                     
-                    // TODO: Uncomment the line below once you write your Vite/React tests
-                    // sh 'npm test'
+                    // Runs the newly added Vitest + React Testing Library suite
+                    sh 'npm test'
                     echo 'Frontend is ready!'
                 }
             }
