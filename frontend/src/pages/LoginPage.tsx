@@ -40,7 +40,7 @@ export function LoginPage() {
             <Activity size={32} className="text-blue-300" />
           </div>
           <h1 className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-family-heading)" }}>
-            Forensic Medical Department- test ci/cd
+            Forensic Medical Department
           </h1>
           <p className="text-blue-300 text-sm mt-1">Medico-Legal Records Management System</p>
         </div>
