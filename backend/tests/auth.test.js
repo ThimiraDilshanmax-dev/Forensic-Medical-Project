@@ -84,10 +84,39 @@ describe("Auth Controller & Routes", () => {
             expect(response.status).toBe(401);
             expect(response.body.message).toBe("Invalid email or password");
         });
+
+        test("3. Should fail to login if user is not found in database", async () => {
+            // Mock returning undefined (no user found)
+            getUserByEmailSpy.mockResolvedValue(undefined);
+
+            const response = await request(app)
+                .post("/api/auth/login")
+                .send({
+                    email: "nonexistent@forensic.gov",
+                    password: "password123"
+                });
+
+            expect(response.status).toBe(401);
+            expect(response.body.message).toBe("Invalid email or password");
+        });
+
+        test("4. Should fail to login when email or password is missing", async () => {
+            getUserByEmailSpy.mockResolvedValue(undefined);
+
+            const response = await request(app)
+                .post("/api/auth/login")
+                .send({
+                    email: ""
+                    // password omitted
+                });
+
+            expect(response.status).toBe(401);
+            expect(response.body.message).toBe("Invalid email or password");
+        });
     });
 
     describe("POST /api/auth/register", () => {
-        test("3. Should reject registration request without authentication", async () => {
+        test("5. Should reject registration request without authentication", async () => {
             const response = await request(app)
                 .post("/api/auth/register")
                 .send({
@@ -99,10 +128,103 @@ describe("Auth Controller & Routes", () => {
             expect(response.status).toBe(401);
             expect(response.body.message).toBe("Access denied. No token provided.");
         });
+
+        test("6. Should allow admin to register a new user successfully", async () => {
+            const mockNewUser = {
+                id: "USR-1001",
+                name: "Dr. Perera II",
+                role: "doctor",
+                email: "dr.perera2@forensic.gov",
+                phone: "0771234567",
+                designation: "Medical Officer",
+                profile_picture_url: null
+            };
+
+            // Setup mock spies
+            getUserByEmailSpy.mockResolvedValue(undefined); // user doesn't exist yet
+            createUserSpy.mockResolvedValue(mockNewUser);
+
+            const adminToken = jwt.sign(
+                { id: "USR-1000", role: "admin", name: "Dr. Perera" },
+                process.env.JWT_SECRET_KEY,
+                { expiresIn: "1h" }
+            );
+
+            const response = await request(app)
+                .post("/api/auth/register")
+                .set("Authorization", `Bearer ${adminToken}`)
+                .send({
+                    id: "USR-1001",
+                    name: "Dr. Perera II",
+                    role: "doctor",
+                    designation: "Medical Officer",
+                    email: "dr.perera2@forensic.gov",
+                    phone: "0771234567",
+                    password: "password123",
+                    profilePictureUrl: null
+                });
+
+            expect(response.status).toBe(201);
+            expect(response.body).toEqual(mockNewUser);
+            expect(getUserByEmailSpy).toHaveBeenCalledWith("dr.perera2@forensic.gov");
+            expect(createUserSpy).toHaveBeenCalled();
+        });
+
+        test("7. Should reject registration if email already exists", async () => {
+            const mockExistingUser = {
+                id: "USR-1000",
+                email: "dr.perera@forensic.gov"
+            };
+
+            getUserByEmailSpy.mockResolvedValue(mockExistingUser);
+
+            const adminToken = jwt.sign(
+                { id: "USR-1000", role: "admin", name: "Dr. Perera" },
+                process.env.JWT_SECRET_KEY,
+                { expiresIn: "1h" }
+            );
+
+            const response = await request(app)
+                .post("/api/auth/register")
+                .set("Authorization", `Bearer ${adminToken}`)
+                .send({
+                    id: "USR-1001",
+                    name: "Dr. Perera II",
+                    role: "doctor",
+                    designation: "Medical Officer",
+                    email: "dr.perera@forensic.gov",
+                    phone: "0771234567",
+                    password: "password123",
+                    profilePictureUrl: null
+                });
+
+            expect(response.status).toBe(400);
+            expect(response.body.message).toBe("User already exists");
+        });
+
+        test("8. Should reject registration if authenticated user is not admin", async () => {
+            const doctorToken = jwt.sign(
+                { id: "USR-1002", role: "doctor", name: "Dr. Hansara" },
+                process.env.JWT_SECRET_KEY,
+                { expiresIn: "1h" }
+            );
+
+            const response = await request(app)
+                .post("/api/auth/register")
+                .set("Authorization", `Bearer ${doctorToken}`)
+                .send({
+                    id: "USR-1003",
+                    email: "new.doctor@forensic.gov",
+                    password: "password123"
+                });
+
+            expect(response.status).toBe(403);
+            expect(response.body.message).toBe("Access denied. Admins only.");
+        });
     });
 
     describe("GET /api/auth/users", () => {
-        test("4. Should reject fetching users without token", async () => {
+        test("9. Should reject fetching users without token", async () => {
             const response = await request(app)
                 .get("/api/auth/users");
 
@@ -110,7 +232,7 @@ describe("Auth Controller & Routes", () => {
             expect(response.body.message).toBe("Access denied. No token provided.");
         });
 
-        test("5. Should return all users when authenticated as admin", async () => {
+        test("10. Should return all users when authenticated as admin", async () => {
             const mockUsers = [
                 { id: "USR-1000", name: "Dr. Perera", role: "admin", email: "dr.perera@forensic.gov", password_hash: "secret" },
                 { id: "USR-1002", name: "Dr. Hansara", role: "doctor", email: "dr.hansara@forensic.gov", password_hash: "secret" }
