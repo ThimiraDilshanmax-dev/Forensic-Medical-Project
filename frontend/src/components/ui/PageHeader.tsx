@@ -9,7 +9,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, onBack, actions }: PageHeaderProps) {
   return (
-    <div className="flex items-start justify-between mb-6">
+    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
       <div className="flex items-center gap-3">
         {onBack && (
           <button onClick={onBack} className="p-1.5 rounded hover:bg-slate-200 transition-colors text-slate-500">
@@ -21,7 +21,7 @@ export function PageHeader({ title, subtitle, onBack, actions }: PageHeaderProps
           {subtitle && <p className="text-sm text-slate-500 mt-0.5">{subtitle}</p>}
         </div>
       </div>
-      {actions && <div className="flex items-center gap-2">{actions}</div>}
+      {actions && <div className="flex items-center gap-2 flex-wrap">{actions}</div>}
     </div>
   );
 }

@@ -172,12 +172,12 @@ export function MLRForm({ form: initForm, patient, currentUser, labRequest, read
         {/* Patient info */}
         {patient && (
           <FormSection title="Patient Information">
-            <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
               <div><span className="text-slate-500">Name:</span> <span className="font-medium">{patient.name}</span></div>
               <div><span className="text-slate-500">ID:</span> <span className="font-medium">{patient.id}</span></div>
               <div><span className="text-slate-500">NIC:</span> <span className="font-medium">{patient.nic}</span></div>
               <div><span className="text-slate-500">Age/Sex:</span> <span className="font-medium">{patient.age} yrs / {patient.sex}</span></div>
-              <div className="col-span-2"><span className="text-slate-500">Address:</span> <span className="font-medium">{patient.address}</span></div>
+              <div className="col-span-1 sm:col-span-2"><span className="text-slate-500">Address:</span> <span className="font-medium">{patient.address}</span></div>
             </div>
           </FormSection>
         )}
@@ -277,7 +277,7 @@ export function MLRForm({ form: initForm, patient, currentUser, labRequest, read
                       </button>
                     )}
                   </div>
-                  <div className="p-3 grid grid-cols-2 gap-x-4">
+                  <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-x-4">
                     <FormField label="Injury No.">
                       <Select
                         value={entry.injuryNo}
@@ -324,10 +324,10 @@ export function MLRForm({ form: initForm, patient, currentUser, labRequest, read
 
         {/* 4. Caused by */}
         <FormSection title="4. Injuries Caused By">
-          <div className="grid grid-cols-2 gap-x-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6">
             <div>
               <div className="text-xs font-semibold text-slate-600 mb-2">(a) Blunt Weapon</div>
-              <div className="grid grid-cols-2 gap-x-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
                 <FormField label="Nos."><Input value={f.bluntWeaponNos} onChange={s("bluntWeaponNos")} disabled={readOnly} /></FormField>
                 <FormField label="Contusions (Nos.)"><Input value={f.bluntContusionNos} onChange={s("bluntContusionNos")} disabled={readOnly} /></FormField>
               </div>
@@ -346,7 +346,7 @@ export function MLRForm({ form: initForm, patient, currentUser, labRequest, read
 
         {/* 5. Intoxication */}
         <FormSection title="5. Intoxication">
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField label="Patient Smelling of Liquor">
               <Select value={f.patientSmellLiquor} onChange={s("patientSmellLiquor")} disabled={readOnly} placeholder="Select…"
                 options={[{ value: "yes", label: "Yes" }, { value: "no", label: "No" }]} />
@@ -360,7 +360,7 @@ export function MLRForm({ form: initForm, patient, currentUser, labRequest, read
 
         {/* Medical officer details */}
         <FormSection title="Medical Officer Details">
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField label="Name"><Input value={f.doctorName} onChange={s("doctorName")} disabled={readOnly} /></FormField>
             <FormField label="Qualifications"><Input value={f.doctorQualifications} onChange={s("doctorQualifications")} disabled={readOnly} /></FormField>
             <FormField label="Designation"><Input value={f.designation} onChange={s("designation")} disabled={readOnly} /></FormField>

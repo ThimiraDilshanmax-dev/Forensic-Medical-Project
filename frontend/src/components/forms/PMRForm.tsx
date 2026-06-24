@@ -128,7 +128,7 @@ export function PMRForm({ form: initForm, patient: initPatient, allPatients, cur
 
       <div className="max-w-3xl space-y-0">
         <FormSection title="Case & Inquest Details">
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField label="INQUEST No."><Input value={f.inquestNo} onChange={s("inquestNo")} disabled={readOnly} placeholder="e.g. INQ/2026/89" /></FormField>
             <FormField label="CASE No."><Input value={f.caseNo} onChange={s("caseNo")} disabled={readOnly} placeholder="e.g. CR/556/26" /></FormField>
             <FormField label="Place of Inquest"><Input value={f.place} onChange={s("place")} disabled={readOnly} /></FormField>
@@ -138,14 +138,14 @@ export function PMRForm({ form: initForm, patient: initPatient, allPatients, cur
         </FormSection>
 
         <FormSection title="Deceased Particulars">
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField label="Name of Deceased Person"><Input value={f.deceasedName} onChange={s("deceasedName")} disabled={readOnly} /></FormField>
             <FormField label="Date & Time of Death (if known)"><Input type="datetime-local" value={f.dateTimeOfDeath} onChange={s("dateTimeOfDeath")} disabled={readOnly} /></FormField>
           </div>
         </FormSection>
 
         <FormSection title="Post-Mortem Examination Details">
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField label="Medical Officer conducting Post-Mortem"><Input value={f.doctorConducting} onChange={s("doctorConducting")} disabled={readOnly} /></FormField>
             <FormField label="Date & Time of Post-Mortem"><Input type="datetime-local" value={f.dateTimeOfExam} onChange={s("dateTimeOfExam")} disabled={readOnly} /></FormField>
             <FormField label="Place of Examination"><Input value={f.placeOfExam} onChange={s("placeOfExam")} disabled={readOnly} /></FormField>
@@ -154,7 +154,7 @@ export function PMRForm({ form: initForm, patient: initPatient, allPatients, cur
         </FormSection>
 
         <FormSection title="Requestor Details">
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField label="Name of Requestor"><Input value={f.requestorName} onChange={s("requestorName")} disabled={readOnly} /></FormField>
             <FormField label="Designation of Requestor"><Input value={f.requestorDesignation} onChange={s("requestorDesignation")} disabled={readOnly} /></FormField>
           </div>
@@ -199,7 +199,7 @@ export function PMRForm({ form: initForm, patient: initPatient, allPatients, cur
         </FormSection>
 
         <FormSection title="Conducting Judicial Medical Officer">
-          <div className="grid grid-cols-2 gap-x-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
             <FormField label="JMO Conducting Name"><Input value={f.jmoName} disabled={true} className="bg-slate-50 border-slate-200 text-slate-500 font-semibold" /></FormField>
           </div>
         </FormSection>

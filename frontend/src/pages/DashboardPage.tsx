@@ -49,7 +49,7 @@ export function DashboardPage() {
         subtitle={`${currentUser.designation} · ${new Date().toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}`}
       />
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map(s => (
           <div key={s.label} className="bg-card rounded-xl border border-border p-4">
             <div className="flex items-center justify-between mb-3">

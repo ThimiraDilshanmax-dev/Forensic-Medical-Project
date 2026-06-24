@@ -46,8 +46,8 @@ export function PatientsPage() {
           return (
             <div key={p.id} className="bg-card border border-border rounded-xl overflow-hidden">
               {/* Patient header */}
-              <div className="px-5 py-4 flex items-start justify-between">
-                <div className="flex items-center gap-3">
+              <div className="px-5 py-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                <div className="flex flex-col sm:flex-row items-start gap-3">
                   {p.profilePictureUrl ? (
                     <img
                       src={p.profilePictureUrl}
@@ -68,7 +68,7 @@ export function PatientsPage() {
                     <div className="text-xs text-slate-400 mt-0.5">{p.address}</div>
                   </div>
                 </div>
-                <div className="text-xs text-slate-400 text-right">
+                <div className="text-xs text-slate-400 text-left sm:text-right flex-shrink-0 border-t border-slate-100 sm:border-t-0 pt-2 sm:pt-0">
                   <div>Registered</div>
                   <div>{new Date(p.registeredAt).toLocaleDateString("en-GB")}</div>
                   <div>by {p.registeredBy}</div>

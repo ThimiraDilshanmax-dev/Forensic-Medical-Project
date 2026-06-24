@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router";
 import {
   Activity, Users, ClipboardList, FileText, Clipboard,
-  BookOpen, FlaskConical, LogOut, Plus, Calendar, BarChart2, User,
+  FlaskConical, LogOut, Plus, Calendar, BarChart2, User, X,
 } from "lucide-react";
 import { cls } from "@/lib/utils";
 import type { AppUser, Role } from "@/types";
@@ -66,9 +66,11 @@ const ROLE_COLORS: Record<Role, string> = {
 interface SidebarProps {
   user: AppUser;
   onLogout: () => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export function Sidebar({ user, onLogout }: SidebarProps) {
+export function Sidebar({ user, onLogout, isOpen = false, onClose }: SidebarProps) {
   const navigate = useNavigate();
   const navItems = NAV_BY_ROLE[user.role];
 
@@ -78,13 +80,25 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
   };
 
   return (
-    <aside className="w-56 flex-shrink-0 bg-sidebar text-sidebar-foreground flex flex-col h-screen">
-      <div className="px-4 py-5 border-b border-sidebar-border">
-        <div className="flex items-center gap-2 mb-1">
-          <Activity size={18} className="text-blue-400" />
-          <span className="text-sm font-bold text-white" style={{ fontFamily: "var(--font-family-heading)" }}>FMD System</span>
+    <aside className={cls(
+      "w-56 flex-shrink-0 bg-sidebar text-sidebar-foreground flex flex-col h-screen fixed md:static inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out md:translate-x-0",
+      isOpen ? "translate-x-0" : "-translate-x-full"
+    )}>
+      <div className="px-4 py-5 border-b border-sidebar-border flex items-center justify-between">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <Activity size={18} className="text-blue-400" />
+            <span className="text-sm font-bold text-white" style={{ fontFamily: "var(--font-family-heading)" }}>FMD System</span>
+          </div>
+          <p className="text-xs text-slate-500">Medico-Legal Records</p>
         </div>
-        <p className="text-xs text-slate-500">Medico-Legal Records</p>
+        {/* Mobile close button */}
+        <button
+          onClick={onClose}
+          className="p-1 rounded hover:bg-sidebar-accent text-slate-400 hover:text-white md:hidden focus:outline-none cursor-pointer"
+        >
+          <X size={16} />
+        </button>
       </div>
 
       <nav className="flex-1 overflow-y-auto py-3 px-2">
@@ -93,6 +107,7 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
             key={item.to}
             to={item.to}
             end
+            onClick={onClose}
             className={({ isActive }) => cls(
               "flex items-center gap-2.5 px-3 py-2 rounded-lg mb-0.5 text-sm transition-colors",
               isActive
@@ -114,7 +129,6 @@ export function Sidebar({ user, onLogout }: SidebarProps) {
               alt={user.name}
               className="w-7 h-7 rounded-full object-cover flex-shrink-0 border border-slate-700"
               onError={(e) => {
-                // Remove src and hide image on error
                 (e.currentTarget as HTMLImageElement).style.display = 'none';
               }}
             />

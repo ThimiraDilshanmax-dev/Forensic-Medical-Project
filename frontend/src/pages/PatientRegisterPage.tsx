@@ -140,7 +140,7 @@ export function PatientRegisterPage() {
           </FormField>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
           <FormField label="Full Name" required><Input value={form.name} onChange={set("name")} placeholder="Full name" /></FormField>
           <FormField label="NIC Number" required><Input value={form.nic} onChange={set("nic")} placeholder="e.g. 901234567V" /></FormField>
           <FormField label="Date of Birth" required><Input type="date" value={form.dob} onChange={set("dob")} /></FormField>

@@ -123,12 +123,12 @@ export function MLEFForm({ form: initForm, patient: initPatient, allPatients, us
         </div>
       )}
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* PART A */}
         <div>
           <FormSection title="Part A — Police Section (1–8)" badge={<Badge status={hasPartA ? "complete" : "draft"} />}>
             {!isAdminEditA && <ReadOnlyBanner text="This section is filled by Admin/Police staff. View only." />}
-            <div className="grid grid-cols-2 gap-x-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
               <FormField label="Police Station" required={isAdminEditA}>
                 <Input value={f.policeStation} onChange={s("policeStation")} disabled={!isAdminEditA} />
               </FormField>
@@ -155,7 +155,7 @@ export function MLEFForm({ form: initForm, patient: initPatient, allPatients, us
             <FormField label="Reason for Referring" required={isAdminEditA}>
               <Textarea value={f.reasonForReferring} onChange={s("reasonForReferring")} disabled={!isAdminEditA} rows={2} />
             </FormField>
-            <div className="grid grid-cols-2 gap-x-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
               <FormField label="Officer Name"><Input value={f.officerName} onChange={s("officerName")} disabled={!isAdminEditA} /></FormField>
               <FormField label="Rank"><Input value={f.officerRank} onChange={s("officerRank")} disabled={!isAdminEditA} /></FormField>
               <FormField label="Reg. No."><Input value={f.officerRegNo} onChange={s("officerRegNo")} disabled={!isAdminEditA} /></FormField>
@@ -169,7 +169,7 @@ export function MLEFForm({ form: initForm, patient: initPatient, allPatients, us
         <div>
           <FormSection title="Part B — Medical Officer Section (9–22)" badge={<Badge status={hasPartB ? "complete" : "draft"} />}>
             {!isDoctorEditB && <ReadOnlyBanner text="This section is filled by Medical Officers. View only." />}
-            <div className="grid grid-cols-2 gap-x-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
               <FormField label="Hospital"><Input value={f.hospital} onChange={s("hospital")} disabled={!isDoctorEditB} /></FormField>
               <FormField label="Ward"><Input value={f.ward} onChange={s("ward")} disabled={!isDoctorEditB} /></FormField>
               <FormField label="BHT No."><Input value={f.bhtNo} onChange={s("bhtNo")} disabled={!isDoctorEditB} /></FormField>
@@ -180,7 +180,7 @@ export function MLEFForm({ form: initForm, patient: initPatient, allPatients, us
             </div>
 
             <FormField label="13. Nature of Body Harm">
-              <div className="grid grid-cols-2 gap-1.5 mt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mt-1">
                 {BODY_HARM_OPTIONS.map(o => (
                   <CheckGroup key={o.value} label={o.label}
                     checked={f.bodyHarmTypes.includes(o.value)}
@@ -194,7 +194,7 @@ export function MLEFForm({ form: initForm, patient: initPatient, allPatients, us
             </FormField>
 
             <FormField label="14. Nature of Causative Weapon">
-              <div className="grid grid-cols-2 gap-1.5 mt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mt-1">
                 {WEAPON_OPTIONS.map(o => (
                   <CheckGroup key={o.value} label={o.label}
                     checked={f.causativeWeapon.includes(o.value)}
@@ -227,7 +227,7 @@ export function MLEFForm({ form: initForm, patient: initPatient, allPatients, us
                 onChange={isDoctorEditB ? s("endangersLife") : undefined} disabled={!isDoctorEditB} />
             </FormField>
 
-            <div className="grid grid-cols-2 gap-x-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
               <FormField label="16. Alcohol Exam">
                 <Select value={f.alcoholExam} onChange={isDoctorEditB ? s("alcoholExam") : undefined} disabled={!isDoctorEditB}
                   placeholder="Select..." options={[{ value: "negative", label: "Negative" }, { value: "smell", label: "Smell" }, { value: "under_influence", label: "Under Influence" }]} />
@@ -256,7 +256,7 @@ export function MLEFForm({ form: initForm, patient: initPatient, allPatients, us
             <FormField label="Other Opinions"><Textarea value={f.otherOpinions} onChange={s("otherOpinions")} disabled={!isDoctorEditB} rows={2} /></FormField>
             <FormField label="22. Remarks"><Textarea value={f.remarks} onChange={s("remarks")} disabled={!isDoctorEditB} rows={2} /></FormField>
 
-            <div className="grid grid-cols-2 gap-x-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
               <FormField label="Doctor Name"><Input value={f.doctorName} onChange={s("doctorName")} disabled={!isDoctorEditB} placeholder={currentUser.name} /></FormField>
               <FormField label="Qualifications"><Input value={f.doctorQualifications} onChange={s("doctorQualifications")} disabled={!isDoctorEditB} /></FormField>
               <FormField label="SLMC Reg. No."><Input value={f.slmcRegNo} onChange={s("slmcRegNo")} disabled={!isDoctorEditB} /></FormField>

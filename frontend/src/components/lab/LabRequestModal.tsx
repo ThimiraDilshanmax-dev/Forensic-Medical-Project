@@ -54,7 +54,7 @@ export function LabRequestModal({ patientId, formId, formType, currentUser, pati
         </div>
         <div className="px-6 py-4 space-y-4">
           <FormField label="Tests Requested">
-            <div className="grid grid-cols-2 gap-1.5 mt-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 mt-1">
               {TEST_OPTIONS.map(t => (
                 <CheckGroup key={t.value} label={t.label} checked={testTypes.includes(t.value)} onChange={() => toggleTest(t.value)} />
               ))}
